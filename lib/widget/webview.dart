@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
+//域名白名单
+const CATCH_URLS = ['m.ctrip.com/', 'm.ctrip.com/html5/', 'm.ctrip.com/html5'];
+
 class WebView extends StatefulWidget {
   //定义相关参数
    String url;
@@ -13,13 +16,13 @@ class WebView extends StatefulWidget {
 
   //构造方法
   /*const*/ WebView(
-      {/*Key key,*/
+      {Key key,
       this.url,
       this.statusBarColor,
       this.title,
       this.hideAppBar,
-        this.backForbid = false}/*)
-      : super(key: key*/){
+        this.backForbid = false})
+      : super(key: key){
      if (url != null && url.contains('ctrip.com')) {
        //fix 携程H5 http://无法打开问题
        url = url.replaceAll("http://", 'https://');
@@ -39,11 +42,13 @@ class _WebViewState extends State<WebView> {
   StreamSubscription<WebViewStateChanged> _onStateChanged;
   StreamSubscription<WebViewHttpError> _onHttpError;
 
+  bool exiting = false;
+
   @override //重写initState方法
   void initState() {
     super.initState();
     webviewReference.close(); //防止页面重新打开
-    //监听url变化回调
+                                //监听url变化回调
     _onUrlChanged = webviewReference.onUrlChanged.listen((String url) {
       //对非http获取https链接判断
       if (url == null || !url.startsWith('http')) {
@@ -55,6 +60,17 @@ class _WebViewState extends State<WebView> {
         webviewReference.onStateChanged.listen((WebViewStateChanged state) {
       switch (state.type) {
         case WebViewState.startLoad:
+          //是否包含相关url
+          if(_isToMain(state.url) && !exiting) {//exiting 标记是否 返回过
+            //如果禁止返回 重新加载当前页面
+            if(widget.backForbid) {
+              webviewReference.launch(widget.url);
+            } else {
+              //返回上一页 exiting标识不重复返回
+              Navigator.pop(context);
+              exiting = true;
+            }
+          }
           break;
         default:
           break;
@@ -74,7 +90,18 @@ class _WebViewState extends State<WebView> {
     webviewReference.dispose();
     super.dispose();
   }
-
+  //判断url是否是首页
+  bool _isToMain(String url) {
+    bool contain = false;
+    for (final value in CATCH_URLS) {
+      //?.如果存在才走endsWith(value) 否则 走false
+      if (url?.endsWith(value) ?? false) {
+        contain = true;
+        break;
+      }
+    }
+    return contain;
+  }
   @override
   Widget build(BuildContext context) {
     String statusBarColorStr = widget.statusBarColor ?? 'ffffff';
@@ -90,7 +117,7 @@ class _WebViewState extends State<WebView> {
           _appBar(Color(int.parse('0xff'+statusBarColorStr)),backButtonColor),
           //Expanded 撑满整个界面
           Expanded(child: WebviewScaffold(url: widget.url,
-          withZoom: true,//是否可缩放
+            withZoom: true,//是否可缩放
             userAgent: 'null',//防止携程H5页面重定向到打开携程APP ctrip://wireless/xxx的网址
             withLocalStorage: true,//是否取用本地缓存
             hidden: true,//默认隐藏
@@ -114,11 +141,16 @@ class _WebViewState extends State<WebView> {
       );
     }
     return Container(
+      color: backgroundColor,
+      padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
       child: FractionallySizedBox(//撑满整个屏幕宽度
         widthFactor: 1,
         child: Stack(
           children: <Widget>[
             GestureDetector(
+              onTap: (){
+                Navigator.pop(context);
+              },
               child: Container(
                 margin: EdgeInsets.only(left: 10),
                 child: Icon(Icons.close, color: backButtonColor, size: 26),

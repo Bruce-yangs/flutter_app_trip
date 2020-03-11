@@ -11,7 +11,7 @@ class LocalNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 64,
-      decoration: BoxDecoration(
+      decoration: BoxDecoration(//装饰器
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(6))),
       child: Padding(
