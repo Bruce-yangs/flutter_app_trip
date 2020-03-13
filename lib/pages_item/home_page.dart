@@ -3,9 +3,12 @@ import 'package:flutterapptrip/dao/home_dao.dart';
 import 'package:flutterapptrip/model/common_model.dart';
 import 'package:flutterapptrip/model/grid_nav_model.dart';
 import 'package:flutterapptrip/model/home_model.dart';
+import 'package:flutterapptrip/model/sales_box_model.dart';
 import 'package:flutterapptrip/widget/grid_nav.dart';
 import 'package:flutterapptrip/widget/local_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutterapptrip/widget/sales_box.dart';
+import 'package:flutterapptrip/widget/sub_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -25,7 +28,9 @@ class _HomePageState extends State<HomePage> {
   double appBarAlpha = 0;
 
   List<CommonModel> localNavList = [];
+  List<CommonModel> subNavList = [];
   GridNavModel gridNavModel;
+  SalesBoxModel salesBoxModel;
 
   @override
   void initState() {
@@ -63,6 +68,8 @@ class _HomePageState extends State<HomePage> {
       setState((){
         localNavList = model.localNavList;
         gridNavModel = model.gridNav;
+        subNavList = model.subNavList;
+        salesBoxModel = model.salesBox;
       });
     }catch(e){
       print(e);
@@ -114,6 +121,16 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
                         child: //GridNav 自定义组件
                         GridNav(gridNavModel:gridNavModel)
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                        child: //GridNav 自定义组件
+                        SubNav(subNavList:subNavList)
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                        child: //GridNav 自定义组件
+                        SalesBox(salesBox:salesBoxModel)
                     ),
                     Container(
                       height: 800,
