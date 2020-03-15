@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutterapptrip/refresh_loadMore.dart';
+//import 'package:flutterapptrip/refresh_loadMore.dart';//上拉加载 下拉刷新
 
-import 'navigator/tab_navigator.dart';//上拉加载 下拉刷新
+import 'navigator/tab_navigator.dart';//项目页面切换
 
 //import 'grid_view.dart';//grid
 //import 'http.dart';//http
