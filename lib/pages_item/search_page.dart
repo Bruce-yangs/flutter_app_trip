@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapptrip/dao/search_dao.dart';
 import 'package:flutterapptrip/model/search_model.dart';
+import 'package:flutterapptrip/pages_item/speak_page.dart';
 import 'package:flutterapptrip/widget/search_bar.dart';
 import 'package:flutterapptrip/widget/webview.dart';
 
@@ -40,6 +41,7 @@ class _SearchPageState extends State<SearchPage> {
   String keyword;
 
   @override
+  //触发搜索
   void initState() {
     if (widget.keyword != null) {
       _onTextChange(widget.keyword);
@@ -116,14 +118,19 @@ class _SearchPageState extends State<SearchPage> {
                 Navigator.pop(context);
               },
               onChanged: _onTextChange,
-//              speakClick: _jumpToSpeak,
+             speakClick: _jumpToSpeak,
             ),
           ),
         )
       ],
     );
   }
-
+//跳转到语音页
+  _jumpToSpeak() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SpeakPage()));
+  }
+  //position -> index
   _item(int position) {
     if (searchModel == null || searchModel.data == null) return null;
     SearchItem item = searchModel.data[position];
@@ -206,11 +213,13 @@ class _SearchPageState extends State<SearchPage> {
   _keywordTextSpans(String word, String keyword) {
     List<TextSpan> spans = [];
     if (word == null || word.length == 0) return spans;
-    List<String> arr = word.split(keyword);
+    List<String> arr = word.split(keyword);//切割后字符如：'oqadsao'->[,qadsa,]
+
     TextStyle normalStyle = TextStyle(fontSize: 16, color: Colors.black87);
     TextStyle keywordStyle = TextStyle(fontSize: 16, color: Colors.orange);
+
     for (int i = 0; i < arr.length; i++) {
-      if ((i + 1) % 2 == 0) {
+      if ((i + 1) % 2 == 0) {//匹配到关键字设置高亮
         spans.add(TextSpan(text: keyword, style: keywordStyle));
       }
       String val = arr[i];

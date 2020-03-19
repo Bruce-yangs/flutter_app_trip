@@ -5,6 +5,7 @@ import 'package:flutterapptrip/model/grid_nav_model.dart';
 import 'package:flutterapptrip/model/home_model.dart';
 import 'package:flutterapptrip/model/sales_box_model.dart';
 import 'package:flutterapptrip/pages_item/search_page.dart';
+import 'package:flutterapptrip/pages_item/speak_page.dart';
 import 'package:flutterapptrip/widget/grid_nav.dart';
 import 'package:flutterapptrip/widget/loading_container.dart';
 import 'package:flutterapptrip/widget/local_nav.dart';
@@ -239,5 +240,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   //跳转到语音页
-  _jumpToSpeak() {}
+  _jumpToSpeak() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SpeakPage()));
+  }
 }
