@@ -118,18 +118,20 @@ class _SearchPageState extends State<SearchPage> {
                 Navigator.pop(context);
               },
               onChanged: _onTextChange,
-             speakClick: _jumpToSpeak,
+              speakClick: _jumpToSpeak,
             ),
           ),
         )
       ],
     );
   }
+
 //跳转到语音页
   _jumpToSpeak() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => SpeakPage()));
   }
+
   //position -> index
   _item(int position) {
     if (searchModel == null || searchModel.data == null) return null;
@@ -155,19 +157,21 @@ class _SearchPageState extends State<SearchPage> {
                 image: AssetImage(_typeImage(item.type)), //加载本地图片
               ),
             ),
-            Column(
-              children: <Widget>[
-                Container(
-                  width: 300,
-                  child: _title(item),
-                ),
-                Container(
-                  width: 300,
-                  margin: EdgeInsets.only(top: 5),
-                  child: _subTitle(item),
-                )
-              ],
-            )
+            Flexible(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: _title(item),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(top: 5),
+                    child: _subTitle(item),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -204,8 +208,8 @@ class _SearchPageState extends State<SearchPage> {
             text: item.price ?? '',
             style: TextStyle(fontSize: 16, color: Colors.orange)),
         TextSpan(
-            text: ' ' +(item.star ?? ''),
-            style: TextStyle(fontSize: 12, color: Colors.grey))
+            text: ' ' + (item.star ?? ''),
+            style: TextStyle(fontSize: 12, color: Colors.grey)),
       ]),
     );
   }
@@ -213,13 +217,14 @@ class _SearchPageState extends State<SearchPage> {
   _keywordTextSpans(String word, String keyword) {
     List<TextSpan> spans = [];
     if (word == null || word.length == 0) return spans;
-    List<String> arr = word.split(keyword);//切割后字符如：'oqadsao'->[,qadsa,]
+    List<String> arr = word.split(keyword); //切割后字符如：'oqadsao'->[,qadsa,]
 
     TextStyle normalStyle = TextStyle(fontSize: 16, color: Colors.black87);
     TextStyle keywordStyle = TextStyle(fontSize: 16, color: Colors.orange);
 
     for (int i = 0; i < arr.length; i++) {
-      if ((i + 1) % 2 == 0) {//匹配到关键字设置高亮
+      if ((i + 1) % 2 == 0) {
+        //匹配到关键字设置高亮
         spans.add(TextSpan(text: keyword, style: keywordStyle));
       }
       String val = arr[i];

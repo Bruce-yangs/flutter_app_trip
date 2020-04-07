@@ -8,7 +8,7 @@ const CATCH_URLS = ['m.ctrip.com/', 'm.ctrip.com/html5/', 'm.ctrip.com/html5'];
 
 class WebView extends StatefulWidget {
   //定义相关参数
-   String url;
+  String url;
   final String statusBarColor;
   final String title;
   final bool hideAppBar;

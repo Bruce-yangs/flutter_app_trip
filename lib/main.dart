@@ -42,10 +42,10 @@ class MyApp extends StatelessWidget{
         /*theme: new ThemeData(//或者这种形式
           primaryColor: Colors.white,
         ),*/
-//        home:TabNavigator()//项目
+        home:TabNavigator()//项目
 
 
-          home:TabNavigator()//上下拉交互
+//          home:TabNavigator()//上下拉交互
 //          home:RefreshAndMore()//上下拉交互
 
 //        home:GridViewList()//Grid
