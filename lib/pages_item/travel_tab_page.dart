@@ -53,7 +53,7 @@ class _TravelTabPageState extends State<TravelTabPage>
     super.dispose();
   }
 
-  //缓存页面
+  //缓存页面  AutomaticKeepAliveClientMixin 配合 wantKeepAlive
   @override
   bool get wantKeepAlive => true;
 
@@ -173,12 +173,12 @@ class _TravelItem extends StatelessWidget {
         }
       },
       child: Card(
-        child: PhysicalModel(//裁切
+        child: PhysicalModel(//裁切圆角效果
           color: Colors.transparent,
-          clipBehavior: Clip.antiAlias,
+          clipBehavior: Clip.antiAlias,//裁切行为 去锯齿
           borderRadius: BorderRadius.circular(5),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,//居左
+            crossAxisAlignment: CrossAxisAlignment.start,//居左显示
             children: <Widget>[
               _itemImage,
               Container(
@@ -252,7 +252,7 @@ class _TravelItem extends StatelessWidget {
               PhysicalModel(
                 color: Colors.transparent,
                 clipBehavior: Clip.antiAlias,
-                borderRadius: BorderRadius.circular(12),//裁切图片的半径
+                borderRadius: BorderRadius.circular(12),//裁切图片的半径 头像
                 child: CachedImage(
                   imageUrl: item.article.author?.coverImage?.dynamicUrl,
                   width: 24,
