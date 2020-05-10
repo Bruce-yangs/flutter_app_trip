@@ -14,6 +14,7 @@ import 'package:flutterapptrip/widget/sales_box.dart';
 import 'package:flutterapptrip/widget/search_bar.dart';
 import 'package:flutterapptrip/widget/sub_nav.dart';
 import 'package:flutterapptrip/widget/webview.dart';
+import 'package:flutterapptrip/pages_item/city_page.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 const SEARCH_BAR_DEFAULT_TEXT = '网红打卡地 景点 酒店 美食';
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> {
   GridNavModel gridNavModel;
   SalesBoxModel salesBoxModel;
   bool _loading = true;
+  String city = '西安市';
 
   @override
   void initState() {
@@ -176,7 +178,8 @@ class _HomePageState extends State<HomePage> {
               inputBoxClick: _jumpToSearch,
               speakClick: _jumpToSpeak,
               defaultText: SEARCH_BAR_DEFAULT_TEXT,
-              leftButtonClick: () {},
+              leftButtonClick: _jumpToCity,
+              city: city,
             ),
           ),
         ),
@@ -243,5 +246,17 @@ class _HomePageState extends State<HomePage> {
   _jumpToSpeak() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => SpeakPage()));
+  }
+
+  //跳转到城市列表
+  void _jumpToCity() async {
+    String result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CityPage()));
+
+    if (result != null) {
+      setState(() {
+        city = result;
+      });
+    }
   }
 }

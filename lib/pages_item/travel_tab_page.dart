@@ -3,7 +3,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutterapptrip/dao/travel_dao.dart';
 import 'package:flutterapptrip/model/travel_model.dart';
 import 'package:flutterapptrip/util/navigator_util.dart';
-//import 'package:flutterapptrip/widget/cached_image.dart';
 import 'package:flutterapptrip/widget/loading_container.dart';
 import 'package:flutterapptrip/widget/webview.dart';
  import 'package:flutterapptrip/widget/cached_image.dart';
@@ -126,6 +125,7 @@ class _TravelTabPageState extends State<TravelTabPage>
         filterItems.add(item);
       }
     });
+    print(filterItems);
     return filterItems;
   }
 

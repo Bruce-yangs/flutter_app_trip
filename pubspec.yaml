@@ -30,6 +30,9 @@ dependencies:
   dio: ^2.1.6 #请求接口
   flutter_staggered_grid_view: ^0.3.0 #瀑布流
   cached_network_image: ^2.0.0 #缓存网络图片
+  flutter_splash_screen: ^0.1.0 # 白屏优化
+  lpinyin: ^1.0.7 # 文字转拼音
+  azlistview: ^0.1.2 #AZ
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -48,7 +51,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/data/
+     - assets/data/cities.json
      - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
